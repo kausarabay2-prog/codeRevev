@@ -1,21 +1,23 @@
-package bitlab.kx.hiber;
-//Anotation Service
+package bitlab.kx.hiber.GameHybernate;
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-//@Table(name = "t_country")
+@Table(name = "t_game")
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country {
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
-    private String code;
+
+    private String genre;
+
+    private double price;
 
 }

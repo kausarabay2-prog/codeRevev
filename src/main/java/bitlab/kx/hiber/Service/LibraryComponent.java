@@ -1,5 +1,6 @@
 package bitlab.kx.hiber.Service;
-
+//ManyToOne
+//OneToMany
 import bitlab.kx.hiber.Library;
 import bitlab.kx.hiber.repository.LibraryRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,41 +14,36 @@ public class LibraryComponent {
     private final LibraryRepository libraryRepository;
 
     // GET ALL
-
     public List<Library> getAll(){
         return libraryRepository.findAll();
     }
-    //GET BY ID
 
-    public Library getById(Long id ){
-        return libraryRepository
-                .findById(id)
-                .orElse(null);
+    // GET BY ID
+    public Library getById(Long id){
+        return libraryRepository.findById(id).orElse(null);
     }
 
-    //ADD
-
-    public void add(String name, String adress){
+    // ADD
+    public void add(String name, String address){
         Library library = Library.builder()
                 .name(name)
-                .adress(adress)
+                .address(address)
                 .build();
+        libraryRepository.save(library);
     }
-    //UPDATE
 
-    public void  update(Long id,
-                        String name,
-                        String adress){
-        Library library = libraryRepository
-                .findById(id)
-                .orElse(null);
+    // UPDATE
+    public void update(Long id, String name, String address){
+        Library library = libraryRepository.findById(id).orElse(null);
         if (library != null){
             library.setName(name);
-            library.setAdress(adress);
+            library.setAddress(address);
+            libraryRepository.save(library);
         }
     }
-    //DELETE
-    public  void delete(long id){
+
+    // DELETE
+    public void delete(long id){
         libraryRepository.deleteById(id);
     }
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Car Details</title>
+</head>
+
+<body>
+
+<h1>Car Details</h1>
+
+<h2 th:text="${car.name}"></h2>
+
+<p>
+    Model:
+    <span th:text="${car.model}"></span>
+</p>
+
+<p>
+    Year:
+    <span th:text="${car.year}"></span>
+</p>
+
+<p>
+    Price:
+    <span th:text="${car.price}"></span>
+</p>
+
+<p>
+    Country:
+    <span th:text="${car.country.name}"></span>
+</p>
+
+<hr>
+
+<h3>Categories</h3>
+
+<ul>
+
+    <li th:each="category : ${car.categories}">
+
+        <span th:text="${category.name}"></span>
+
+        <form method="post"
+              action="/unassign-category"
+              style="display:inline">
+
+            <input type="hidden"
+                   name="carId"
+                   th:value="${car.id}">
+
+            <input type="hidden"
+                   name="categoryId"
+                   th:value="${category.id}">
+
+            <button type="submit">
+                REMOVE
+            </button>
+
+        </form>
+
+    </li>
+
+</ul>
+
+<h3>Add Category</h3>
+
+<form method="post"
+      action="/assign-category">
+
+    <input type="hidden"
+           name="carId"
+           th:value="${car.id}">
+
+    <select name="categoryId">
+
+        <option
+                th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}">
+        </option>
+
+    </select>
+
+    <button type="submit">
+        ADD
+    </button>
+
+</form>
+
+<br>
+
+<a href="/">
+    BACK
+</a>
+
+</body>
+</html>

@@ -1,10 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Book</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
 </head>
+
 <body>
-$END$
+
+<div class="container mt-5">
+
+    <div th:if="${book == null}">
+
+        <h1 class="mb-4">Add Book</h1>
+
+        <form th:action="@{/books/add}" method="post">
+
+            <label class="form-label">Title</label>
+            <input
+                    type="text"
+                    name="title"
+                    class="form-control mb-3"
+                    placeholder="Book title"
+                    required>
+
+            <label class="form-label">Author</label>
+            <input
+                    type="text"
+                    name="author"
+                    class="form-control mb-3"
+                    placeholder="Author"
+                    required>
+
+            <label class="form-label">Price</label>
+            <input
+                    type="number"
+                    name="price"
+                    class="form-control mb-3"
+                    placeholder="Price"
+                    required>
+
+            <label class="form-label">Library</label>
+            <select
+                    name="library"
+                    class="form-select mb-3"
+                    required>
+                <option value="">Select library</option>
+                <option
+                        th:each="library : ${libraries}"
+                        th:value="${library.id}"
+                        th:text="${library.name}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-success">Add</button>
+            <a href="/books" class="btn btn-secondary">Back</a>
+
+        </form>
+
+    </div>
+
+
+    <div th:if="${book != null}">
+
+        <h1 class="mb-4">Book Details</h1>
+
+        <form th:action="@{/books/update}" method="post">
+
+            <input type="hidden" name="id" th:value="${book.id}">
+
+            <label class="form-label">Title</label>
+            <input
+                    type="text"
+                    name="title"
+                    class="form-control mb-3"
+                    th:value="${book.title}"
+                    required>
+
+            <label class="form-label">Author</label>
+            <input
+                    type="text"
+                    name="author"
+                    class="form-control mb-3"
+                    th:value="${book.author}"
+                    required>
+
+            <label class="form-label">Price</label>
+            <input
+                    type="number"
+                    name="price"
+                    class="form-control mb-3"
+                    th:value="${book.price}"
+                    required>
+
+            <label class="form-label">Library</label>
+            <select
+                    name="library"
+                    class="form-select mb-3"
+                    required>
+                <option
+                        th:each="library : ${libraries}"
+                        th:value="${library.id}"
+                        th:text="${library.name}"
+                        th:selected="${book.library != null and book.library.id == library.id}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-warning">Update</button>
+            <a href="/books" class="btn btn-secondary">Back</a>
+
+        </form>
+
+        <form th:action="@{/books/delete}" method="post" class="mt-3">
+            <input type="hidden" name="id" th:value="${book.id}">
+            <button
+                    type="submit"
+                    class="btn btn-danger"
+                    onclick="return confirm('Delete book?')">
+                Delete
+            </button>
+        </form>
+
+    </div>
+
+</div>
+
 </body>
 </html>

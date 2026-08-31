@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Music Library</title>
+</head>
+
+<body>
+
+<h1>🎵 Music Library</h1>
+
+<a href="/add">
+    <button>Add Song</button>
+</a>
+
+<h3>Find songs by:</h3>
+
+<form method="get" action="/">
+
+    <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            th:value="${param.title}"
+    >
+
+    <input
+            type="text"
+            name="artist"
+            placeholder="Artist"
+            th:value="${param.artist}"
+    >
+
+    <input
+            type="number"
+            name="minYear"
+            placeholder="Minimum year"
+            th:value="${param.minYear}"
+    >
+
+    <input
+            type="number"
+            name="maxDuration"
+            placeholder="Maximum duration"
+            th:value="${param.maxDuration}"
+    >
+
+    <select name="genre">
+
+        <option value="">
+            Any genre
+        </option>
+
+        <option value="Pop"
+                th:selected="${param.genre == 'Pop'}">
+            Pop
+        </option>
+
+        <option value="Rock"
+                th:selected="${param.genre == 'Rock'}">
+            Rock
+        </option>
+
+        <option value="Hip-Hop"
+                th:selected="${param.genre == 'Hip-Hop'}">
+            Hip-Hop
+        </option>
+
+    </select>
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<hr>
+
+<table border="1">
+
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Year</th>
+        <th>Duration</th>
+        <th>Genre</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="song : ${songs}">
+
+        <td th:text="${song.id}"></td>
+
+        <td th:text="${song.title}"></td>
+
+        <td th:text="${song.artist}"></td>
+
+        <td th:text="${song.year}"></td>
+
+        <td th:text="${song.duration + ' sec'}"></td>
+
+        <td th:text="${song.genre}"></td>
+
+        <td>
+
+            <a th:href="@{'/details/' + ${song.id}}">
+                Details
+            </a>
+
+            |
+
+            <a th:href="@{'/update/' + ${song.id}}">
+                Update
+            </a>
+
+            |
+
+            <form
+                    th:action="@{'/delete/' + ${song.id}}"
+                    method="post"
+                    style="display:inline;"
+            >
+
+                <button type="submit">
+                    Delete
+                </button>
+
+            </form>
+
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+
+</html>

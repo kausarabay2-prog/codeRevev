@@ -1,10 +1,11 @@
 package bitlab.kx.hiber;
-
+//ManyToOne
+//OneToMany
 import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "t_book")
+//@Table(name = "t_book")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,11 +15,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private  String title;
+    private String title;
     private String author;
-    private  int price;
+    private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "library_id")
+//    @JoinColumn(name = "library_id")
     private Library library;
 }

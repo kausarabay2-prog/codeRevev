@@ -3,19 +3,31 @@ package bitlab.kx.hiber;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
-//@Table(name = "t_country")
+//@Table(name = "t_car")
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country {
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String code;
 
+    private String name;
+
+    private String model;
+
+    private int year;
+
+    private double price;
+
+    @ManyToOne
+    private Country country;
+
+    @ManyToMany
+    private List<Category> categories;
 }

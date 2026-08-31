@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "t_Lybray")
+//@Table(name = "t_Lybray")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,11 +14,11 @@ import java.util.List;
 @Builder
 public class Library {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String adress;
+    private String address;
 
-    @OneToMany(mappedBy =  "libray")
+    @OneToMany(mappedBy = "library")
     private List<Book> boos;
 }

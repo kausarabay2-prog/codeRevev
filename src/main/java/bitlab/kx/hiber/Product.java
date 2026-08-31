@@ -1,5 +1,6 @@
 package bitlab.kx.hiber;
-
+//ManyToOne
+//OneToMany
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
